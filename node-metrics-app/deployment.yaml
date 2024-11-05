@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-metrics-app
+  labels:
+    app: node-metrics-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-metrics-app
+  template:
+    metadata:
+      labels:
+        app: node-metrics-app
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "9991" # Updated port
+    spec:
+      containers:
+        - name: node-metrics-app
+          image: sumanth17121988/node-metrics-app:1
+          ports:
+            - containerPort: 9991  # Updated port
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 9991  # Updated port
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 9991  # Updated port
+
