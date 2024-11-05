@@ -3,4 +3,4 @@ WORKDIR /usr/app
 ADD target/*.jar app.jar
 ENV JAVA_OPTS=""
 EXPOSE 9999
-ENTRYPOINT exec java ${JAVA_OPTS} -jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
